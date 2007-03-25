@@ -1,0 +1,138 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename marray.info
+@settitle MARRAY extensions to the GNU Scientific Library
+@finalout
+
+@dircategory Scientific software
+@direntry
+* marray: (marray).                   MARRAY extensions to GSL
+@end direntry
+
+@c define our special TeX math macros
+@include mathinclude.texi
+@include version-ref.texi
+
+@iftex
+@copying
+Copyright @copyright{} 2004 Brian Gough.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+A copy of the license is included in the section entitled "GNU
+Free Documentation License".
+@end copying
+@end iftex
+
+@titlepage
+@title MARRAY
+@subtitle Extensions to the GNU Scientific Library
+@subtitle Version @value{VERSION}
+@subtitle @value{UPDATED}
+
+@author Jordi Burguet-Castell
+Network Theory Limited
+@comment @email{burget@@cern.ch}
+@page
+@vskip 0pt plus 1filll
+@insertcopying
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top, Introduction, (dir), (dir)
+@top MARRAY
+
+This file documents MARRAY, a data type to represent marrays and a
+collection of functions to do basic manipulations with them. It is
+intended to be used as an extension of the GNU Scientific Library
+(GSL).
+
+Information about GSL can be found at the project homepage,
+@uref{http://www.gnu.org/software/gsl/}.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License.
+@end ifnottex
+
+@menu
+* Introduction::                
+* Functions::                   
+* Examples::                    
+* References and Further Reading::  
+* GNU Free Documentation License::  
+* Function Index::              
+* Variable Index::              
+* Type Index::                  
+* Concept Index::               
+@end menu
+
+@node  Introduction, Functions, Top, Top
+@chapter Introduction
+
+A marray is a data structure which generalizes vectors and (square)
+matrices. A marray of rank r and dimension d is a ``r-hipercube'' with
+d elements in each row (and column, etc).
+
+The header file is @file{marray.h}.
+
+@node Functions, Examples, Introduction, Top
+@chapter Functions
+
+Allocation
+
+@deftypefun marray* marray_alloc (const unsigned int @var{rank}, const size_t @var{dimension})
+this functions allocates memory for a marray of rank @var{rank} and
+dimension @var{dimension}, and returns a pointer to its position in memory.
+@end deftypefun
+
+@deftypefun marray* marray_calloc (const unsigned int @var{rank}, const size_t @var{dimension})
+this functions allocates memory for a marray and sets all its elements
+to 0
+@end deftypefun
+
+@node Examples, References and Further Reading, Functions, Top
+@chapter Examples
+
+example program goes here
+
+@example
+#include <...>
+
+int main (void) 
+@{
+...
+@}
+@end example
+
+@node References and Further Reading, GNU Free Documentation License, Examples, Top
+@chapter References and Further Reading
+
+Any references
+
+@node GNU Free Documentation License, Function Index, References and Further Reading, Top
+@unnumbered GNU Free Documentation License
+@include fdl.texi
+
+@node Function Index, Variable Index, GNU Free Documentation License, Top
+@unnumbered Function Index
+
+@printindex fn
+
+@node Variable Index, Type Index, Function Index, Top
+@unnumbered Variable Index
+
+@printindex vr
+
+@node Type Index, Concept Index, Variable Index, Top
+@unnumbered Type Index
+
+@printindex tp
+
+@node Concept Index,  , Type Index, Top
+@unnumbered Concept Index
+
+@printindex cp
+@bye

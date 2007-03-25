@@ -1,0 +1,46 @@
+Copyright (C) 2004, 2005, 2007 Jordi Burguet-Castell <jbc@member.fsf.org>
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+This package  provides a library which is an extension for the
+GNU Scientific Library (GSL). The latest version can be found at
+http://savannah.nongnu.org/projects/marray/
+
+It allows to define and manipulate marrays, multidimensional arrays of
+arbitrary order and arbitrary dimension different for each
+index. Marrays generalize vectors and matrices, and are well suited to
+manipulate data grids.
+
+The library interface is very similar to that of gsl_matrix, and most
+of the functions that exist for gsl_matrix are also implemented for
+marrays and have the same syntax.
+
+Its sister project is "tensor", which defines a new type similar to marray
+but with the same dimension for each index (for matrices, that would be
+square matrices), and with all the common operations used with tensors,
+including tensorial product, index contraction and index swapping. It is
+suited to work with tensor algebra. "tensor" can be found at
+http://savannah.nongnu.org/projects/tensor/
+
+To install this software you first need the GNU Scientific Library
+(GSL), that you can get from: http://sources.redhat.com/gsl/ . See the
+detailed instructions in the file INSTALL in this same
+directory. Briefly, all you need to do is:
+  ./configure
+  make
+  make install
+(for the last step you may need to be root).
+
+If you took the files directly from the repository, you will need to
+run ./autogen.sh first. That is:
+  ./autogen.sh
+  ./configure
+  make
+  make install
+
+To use this library, compile your program with
+  gcc -o myprog -lgslcblas -lgsl -lmarray myprog.c
+
+That's it. Have fun!
