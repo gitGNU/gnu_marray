@@ -1,4 +1,4 @@
-/* jbc_marray/jbc_marray_utilities.c
+/* marray/marray_utilities.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * 
@@ -30,11 +30,11 @@
 
 
 /*
- * Changes the absolute position ("pos") in the jbc_marray viewed as an array
+ * Changes the absolute position ("pos") in the marray viewed as an array
  * to its set of indices ("indices").
  *
  * It returns in the argument "indices" an array with indices[i] being
- * the ith index that corresponds to position "pos" in a jbc_marray with
+ * the ith index that corresponds to position "pos" in a marray with
  * dimensions "dimension".
  *
  * The "indices" array must be allocated with enough space *before*

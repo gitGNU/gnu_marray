@@ -1,4 +1,4 @@
-/* jbc_marray/jbc_marray_source.c
+/* marray/marray_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * 
@@ -22,7 +22,7 @@
 
 #ifndef HIDE_INLINE_STATIC
 size_t
-FUNCTION(jbc_marray, position) (const size_t * indices, const TYPE (jbc_marray) * t)
+FUNCTION(marray, position) (const size_t * indices, const TYPE (marray) * t)
 {
   size_t shift, position;
   unsigned int i;
@@ -44,11 +44,11 @@ FUNCTION(jbc_marray, position) (const size_t * indices, const TYPE (jbc_marray) 
 
 
 BASE
-FUNCTION(jbc_marray, get) (const TYPE (jbc_marray) * t, const size_t * indices)
+FUNCTION(marray, get) (const TYPE (marray) * t, const size_t * indices)
 {
   size_t position;
 
-  position = FUNCTION(jbc_marray, position) (indices, t);
+  position = FUNCTION(marray, position) (indices, t);
   if (gsl_check_range)
     if (position >= t->size)
       GSL_ERROR_VAL("index out of range", GSL_EINVAL, 0);
@@ -58,11 +58,11 @@ FUNCTION(jbc_marray, get) (const TYPE (jbc_marray) * t, const size_t * indices)
 
 
 void
-FUNCTION(jbc_marray, set) (TYPE (jbc_marray) * t, const size_t * indices, const BASE x)
+FUNCTION(marray, set) (TYPE (marray) * t, const size_t * indices, const BASE x)
 {
   size_t position;
 
-  position = FUNCTION(jbc_marray, position) (indices, t);
+  position = FUNCTION(marray, position) (indices, t);
   if (gsl_check_range)
     if (position >= t->size)
       GSL_ERROR_VOID("index out of range", GSL_EINVAL);
@@ -72,11 +72,11 @@ FUNCTION(jbc_marray, set) (TYPE (jbc_marray) * t, const size_t * indices, const 
 
 
 BASE *
-FUNCTION(jbc_marray, ptr) (TYPE (jbc_marray) * t, const size_t * indices)
+FUNCTION(marray, ptr) (TYPE (marray) * t, const size_t * indices)
 {
   size_t position;
 
-  position = FUNCTION(jbc_marray, position) (indices, t);
+  position = FUNCTION(marray, position) (indices, t);
   if (gsl_check_range)
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);
@@ -86,11 +86,11 @@ FUNCTION(jbc_marray, ptr) (TYPE (jbc_marray) * t, const size_t * indices)
 
 
 const BASE *
-FUNCTION(jbc_marray, const_ptr) (const TYPE (jbc_marray) * t, const size_t * indices)
+FUNCTION(marray, const_ptr) (const TYPE (marray) * t, const size_t * indices)
 {
   size_t position;
 
-  position = FUNCTION(jbc_marray, position) (indices, t);
+  position = FUNCTION(marray, position) (indices, t);
   if (gsl_check_range)
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);

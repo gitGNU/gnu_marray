@@ -1,4 +1,4 @@
-/* jbc_marray/test.c
+/* marray/test.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix test code from Gerard Jungman, Brian Gough

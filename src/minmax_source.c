@@ -1,4 +1,4 @@
-/* jbc_marray/minmax_source.c
+/* marray/minmax_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Gerard Jungman, Brian Gough
@@ -20,10 +20,10 @@
  */
 
 /*
- * Finds the largest element of a jbc_marray.
+ * Finds the largest element of a marray.
  */
 BASE
-FUNCTION (jbc_marray, max) (const TYPE (jbc_marray) * t)
+FUNCTION (marray, max) (const TYPE (marray) * t)
 {
   size_t i, n;
 
@@ -43,10 +43,10 @@ FUNCTION (jbc_marray, max) (const TYPE (jbc_marray) * t)
 
 
 /*
- * Finds the smallest element of a jbc_marray.
+ * Finds the smallest element of a marray.
  */
 BASE
-FUNCTION (jbc_marray, min) (const TYPE (jbc_marray) * t)
+FUNCTION (marray, min) (const TYPE (marray) * t)
 {
   size_t i, n;
 
@@ -66,10 +66,10 @@ FUNCTION (jbc_marray, min) (const TYPE (jbc_marray) * t)
 
 
 /*
- * Finds the smallest and largest elements of a jbc_marray.
+ * Finds the smallest and largest elements of a marray.
  */
 void
-FUNCTION (jbc_marray, minmax) (const TYPE (jbc_marray) * t,
+FUNCTION (marray, minmax) (const TYPE (marray) * t,
                          BASE * min_out, BASE * max_out)
 {
   size_t i, n;
@@ -96,13 +96,13 @@ FUNCTION (jbc_marray, minmax) (const TYPE (jbc_marray) * t,
 
 
 /*
- * Finds the indices of the largest element of a jbc_marray.
+ * Finds the indices of the largest element of a marray.
  *
  * The array "indices" must have enough space to store all the indices
  * *before* calling this function.
  */
 void
-FUNCTION (jbc_marray, max_index) (const TYPE (jbc_marray) * t, size_t * indices)
+FUNCTION (marray, max_index) (const TYPE (marray) * t, size_t * indices)
 {
   size_t i, n;
 
@@ -126,13 +126,13 @@ FUNCTION (jbc_marray, max_index) (const TYPE (jbc_marray) * t, size_t * indices)
 
 
 /*
- * Finds the index of the smallest element of a jbc_marray.
+ * Finds the index of the smallest element of a marray.
  *
  * The array "indices" must have enough space to store all the indices
  * *before* calling this function.
  */
 void
-FUNCTION (jbc_marray, min_index) (const TYPE (jbc_marray) * t,
+FUNCTION (marray, min_index) (const TYPE (marray) * t,
                                   size_t * indices)
 {
   size_t i, n;
@@ -157,13 +157,13 @@ FUNCTION (jbc_marray, min_index) (const TYPE (jbc_marray) * t,
 
 
 /*
- * Finds the indices of the smallest and largest elements of a jbc_marray.
+ * Finds the indices of the smallest and largest elements of a marray.
  *
  * The array "indices" must have enough space to store all the indices
  * *before* calling this function.
  */
 void
-FUNCTION (jbc_marray, minmax_index) (const TYPE (jbc_marray) * t,
+FUNCTION (marray, minmax_index) (const TYPE (marray) * t,
                                      size_t * imin, size_t * imax)
 {
   size_t i, n;

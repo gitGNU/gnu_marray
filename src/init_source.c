@@ -1,4 +1,4 @@
-/* jbc_marray/init_source.c
+/* marray/init_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Gerard Jungman, Brian Gough
@@ -32,27 +32,27 @@
 /* ------ Allocation ------ */
 
 /*
- * Allocate memory for a jbc_marray and return a pointer to it.
+ * Allocate memory for a marray and return a pointer to it.
  */
-TYPE(jbc_marray) *
-FUNCTION(jbc_marray, alloc) (const unsigned int rank, const size_t * dimension)
+TYPE(marray) *
+FUNCTION(marray, alloc) (const unsigned int rank, const size_t * dimension)
 {
   unsigned int i;
   size_t n;
-  TYPE(jbc_marray) * t;
+  TYPE(marray) * t;
 
   for (i = 0; i < rank; i++)
     {
       if (dimension[i] == 0)
-        GSL_ERROR_VAL ("jbc_marray dimension must be positive integer",
+        GSL_ERROR_VAL ("marray dimension must be positive integer",
                        GSL_EINVAL, 0);
     }
   
-  t = (TYPE(jbc_marray) *) malloc (sizeof (TYPE(jbc_marray)));
+  t = (TYPE(marray) *) malloc (sizeof (TYPE(marray)));
 
   if (t == 0)
     {
-      GSL_ERROR_VAL ("failed to allocate space for jbc_marray struct",
+      GSL_ERROR_VAL ("failed to allocate space for marray struct",
 		     GSL_ENOMEM, 0);
     }
 
@@ -85,20 +85,20 @@ FUNCTION(jbc_marray, alloc) (const unsigned int rank, const size_t * dimension)
 
 
 /*
- * Same as jbc_marray_alloc, but put all elements to 0.
+ * Same as marray_alloc, but put all elements to 0.
  */
-TYPE(jbc_marray) *
-FUNCTION(jbc_marray, calloc) (const unsigned int rank, const size_t * dimension)
+TYPE(marray) *
+FUNCTION(marray, calloc) (const unsigned int rank, const size_t * dimension)
 {
   size_t i;
   size_t n;
 
-  TYPE(jbc_marray) * t = FUNCTION(jbc_marray, alloc) (rank, dimension);
+  TYPE(marray) * t = FUNCTION(marray, alloc) (rank, dimension);
 
   if (t == 0)
     return NULL;
   
-  /* initialize jbc_marray to zero */
+  /* initialize marray to zero */
   
   n = t->size;
   for (i = 0; i < n; i++)
@@ -109,13 +109,13 @@ FUNCTION(jbc_marray, calloc) (const unsigned int rank, const size_t * dimension)
 
 
 /*
- * Copy from an existing jbc_marray.
+ * Copy from an existing marray.
  */
-TYPE(jbc_marray) *
-FUNCTION(jbc_marray, copy) (TYPE(jbc_marray) * tt)
+TYPE(marray) *
+FUNCTION(marray, copy) (TYPE(marray) * tt)
 {
   unsigned int i;
-  TYPE(jbc_marray) * t = FUNCTION(jbc_marray, alloc) (tt->rank, tt->dimension);
+  TYPE(marray) * t = FUNCTION(marray, alloc) (tt->rank, tt->dimension);
 
   if (t == 0)
     return NULL;
@@ -130,7 +130,7 @@ FUNCTION(jbc_marray, copy) (TYPE(jbc_marray) * tt)
  * Free memory.
  */
 void
-FUNCTION(jbc_marray, free) (TYPE(jbc_marray) * t)
+FUNCTION(marray, free) (TYPE(marray) * t)
 {
   free(t->data);
   free(t->dimension);
@@ -143,15 +143,15 @@ FUNCTION(jbc_marray, free) (TYPE(jbc_marray) * t)
 
 
 /*
- * Convert a rank 2 jbc_marray to a matrix.
+ * Convert a rank 2 marray to a matrix.
  */
 TYPE (gsl_matrix) *
-FUNCTION (jbc_marray, 2matrix) (TYPE (jbc_marray) * t)
+FUNCTION (marray, 2matrix) (TYPE (marray) * t)
 {
   TYPE(gsl_matrix) * m;
 
   if (t->rank != 2)
-    GSL_ERROR_NULL("jbc_marray of rank != 2", GSL_EINVAL);
+    GSL_ERROR_NULL("marray of rank != 2", GSL_EINVAL);
 
 
   m = (TYPE (gsl_matrix) *) malloc (sizeof (TYPE (gsl_matrix)));
@@ -171,15 +171,15 @@ FUNCTION (jbc_marray, 2matrix) (TYPE (jbc_marray) * t)
 
 
 /*
- * Convert a rank 1 jbc_marray to a vector.
+ * Convert a rank 1 marray to a vector.
  */
 TYPE (gsl_vector) *
-FUNCTION (jbc_marray, 2vector) (TYPE (jbc_marray) * t)
+FUNCTION (marray, 2vector) (TYPE (marray) * t)
 {
   TYPE(gsl_vector) * v;
 
   if (t->rank != 1)
-    GSL_ERROR_NULL("jbc_marray of rank != 1", GSL_EINVAL);
+    GSL_ERROR_NULL("marray of rank != 1", GSL_EINVAL);
 
 
   v = (TYPE (gsl_vector) *) malloc (sizeof (TYPE (gsl_vector)));
@@ -206,7 +206,7 @@ FUNCTION (jbc_marray, 2vector) (TYPE (jbc_marray) * t)
  * t = 0  (all elements = 0)
  */
 void
-FUNCTION(jbc_marray, set_zero) (TYPE(jbc_marray) * t)
+FUNCTION(marray, set_zero) (TYPE(marray) * t)
 {
   ATOMIC * const data = t->data;
   size_t i, n;
@@ -224,7 +224,7 @@ FUNCTION(jbc_marray, set_zero) (TYPE(jbc_marray) * t)
  * t_ijk = x  (for i,j,k = 0,1,...,dimension-1)
  */
 void
-FUNCTION(jbc_marray, set_all) (TYPE(jbc_marray) * t, BASE x)
+FUNCTION(marray, set_all) (TYPE(marray) * t, BASE x)
 {
   size_t i, n;
   ATOMIC * const data = t->data;

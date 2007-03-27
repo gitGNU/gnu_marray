@@ -1,4 +1,4 @@
-/* jbc_marray/oper_complex_source.c
+/* marray/oper_complex_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Brian Gough
@@ -20,24 +20,24 @@
  */
 
 int
-FUNCTION(jbc_marray, add) (TYPE (jbc_marray) * a,
-                           const TYPE (jbc_marray) * b)
+FUNCTION(marray, add) (TYPE (marray) * a,
+                           const TYPE (marray) * b)
 {
-  return jbc_marray_add(a, b);
+  return marray_add(a, b);
 }
 
 
 int
-FUNCTION(jbc_marray, sub) (TYPE (jbc_marray) * a,
-                           const TYPE (jbc_marray) * b)
+FUNCTION(marray, sub) (TYPE (marray) * a,
+                           const TYPE (marray) * b)
 {
-  return jbc_marray_sub(a, b);
+  return marray_sub(a, b);
 }
 
 
 int
-FUNCTION(jbc_marray, mul_elements) (TYPE (jbc_marray) * a,
-                                    const TYPE (jbc_marray) * b)
+FUNCTION(marray, mul_elements) (TYPE (marray) * a,
+                                    const TYPE (marray) * b)
 {
   const unsigned int rank = a->rank;
   const size_t dimension  = a->dimension;
@@ -45,7 +45,7 @@ FUNCTION(jbc_marray, mul_elements) (TYPE (jbc_marray) * a,
 
   if (b->rank != rank || b->dimension != dimension)
     {
-      GSL_ERROR ("jbc_marrays must have same dimensions", GSL_EBADLEN);
+      GSL_ERROR ("marrays must have same dimensions", GSL_EBADLEN);
       return 1;
     }
 
@@ -69,8 +69,8 @@ FUNCTION(jbc_marray, mul_elements) (TYPE (jbc_marray) * a,
 
 
 int
-FUNCTION(jbc_marray, div_elements) (TYPE (jbc_marray) * a,
-                                    const TYPE (jbc_marray) * b)
+FUNCTION(marray, div_elements) (TYPE (marray) * a,
+                                    const TYPE (marray) * b)
 {
   const unsigned int rank = a->rank;
   const size_t dimension  = a->dimension;
@@ -78,7 +78,7 @@ FUNCTION(jbc_marray, div_elements) (TYPE (jbc_marray) * a,
 
   if (b->rank != rank || b->dimension != dimension)
     {
-      GSL_ERROR ("jbc_marrays must have same dimensions", GSL_EBADLEN);
+      GSL_ERROR ("marrays must have same dimensions", GSL_EBADLEN);
       return 1;
     }
 
@@ -106,7 +106,7 @@ FUNCTION(jbc_marray, div_elements) (TYPE (jbc_marray) * a,
 }
 
 
-int FUNCTION(jbc_marray, scale) (TYPE (jbc_marray) * a, const BASE x)
+int FUNCTION(marray, scale) (TYPE (marray) * a, const BASE x)
 {
   size_t i, n;
 
@@ -128,7 +128,7 @@ int FUNCTION(jbc_marray, scale) (TYPE (jbc_marray) * a, const BASE x)
 }
 
 
-int FUNCTION(jbc_marray, add_constant) (TYPE (jbc_marray) * a, const BASE x)
+int FUNCTION(marray, add_constant) (TYPE (marray) * a, const BASE x)
 {
   size_t i, n;
 

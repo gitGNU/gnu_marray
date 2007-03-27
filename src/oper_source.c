@@ -1,4 +1,4 @@
-/* jbc_marray/oper_source.c
+/* marray/oper_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Brian Gough
@@ -20,17 +20,17 @@
  */
 
 int 
-FUNCTION(jbc_marray, add) (TYPE(jbc_marray) * a, const TYPE(jbc_marray) * b)
+FUNCTION(marray, add) (TYPE(marray) * a, const TYPE(marray) * b)
 {
   unsigned int j;
   size_t i, n;
 
   if (a->rank != b->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (j = 0; j < b->rank; j++)
     if (a->dimension[j] != b->dimension[j])
-      GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+      GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
 
   n = a->size;
 
@@ -42,18 +42,18 @@ FUNCTION(jbc_marray, add) (TYPE(jbc_marray) * a, const TYPE(jbc_marray) * b)
 
 
 int 
-FUNCTION(jbc_marray, sub) (TYPE(jbc_marray) * a, const TYPE(jbc_marray) * b)
+FUNCTION(marray, sub) (TYPE(marray) * a, const TYPE(marray) * b)
 {
   unsigned int j;
   size_t i, n;
 
 
   if (a->rank != b->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (j = 0; j < b->rank; j++)
     if (a->dimension[j] != b->dimension[j])
-      GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+      GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
   
   n = a->size;
 
@@ -65,19 +65,19 @@ FUNCTION(jbc_marray, sub) (TYPE(jbc_marray) * a, const TYPE(jbc_marray) * b)
 
 
 int 
-FUNCTION(jbc_marray, mul_elements) (TYPE(jbc_marray) * a,
-                                    const TYPE(jbc_marray) * b)
+FUNCTION(marray, mul_elements) (TYPE(marray) * a,
+                                    const TYPE(marray) * b)
 {
   unsigned int j;
   size_t i, n;
 
 
   if (a->rank != b->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (j = 0; j < b->rank; j++)
     if (a->dimension[j] != b->dimension[j])
-      GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+      GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
 
   
   n = a->size;
@@ -90,18 +90,18 @@ FUNCTION(jbc_marray, mul_elements) (TYPE(jbc_marray) * a,
 
 
 int 
-FUNCTION(jbc_marray, div_elements) (TYPE(jbc_marray) * a,
-                                    const TYPE(jbc_marray) * b)
+FUNCTION(marray, div_elements) (TYPE(marray) * a,
+                                    const TYPE(marray) * b)
 {
   unsigned int j;
   size_t i, n;
 
   if (a->rank != b->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (j = 0; j < b->rank; j++)
     if (a->dimension[j] != b->dimension[j])
-      GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+      GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
   
   n = a->size;
 
@@ -113,7 +113,7 @@ FUNCTION(jbc_marray, div_elements) (TYPE(jbc_marray) * a,
 
 
 int 
-FUNCTION(jbc_marray, scale) (TYPE(jbc_marray) * a, const double x)
+FUNCTION(marray, scale) (TYPE(marray) * a, const double x)
 {
   size_t i, n;
 
@@ -127,7 +127,7 @@ FUNCTION(jbc_marray, scale) (TYPE(jbc_marray) * a, const double x)
 
 
 int 
-FUNCTION(jbc_marray, add_constant) (TYPE(jbc_marray) * a, const double x)
+FUNCTION(marray, add_constant) (TYPE(marray) * a, const double x)
 {
   size_t i, n;
 

@@ -1,4 +1,4 @@
-/* jbc_marray/prop_source.c
+/* marray/prop_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix test code from Gerard Jungman, Brian Gough
@@ -20,7 +20,7 @@
  */
 
 int
-FUNCTION (jbc_marray, isnull) (const TYPE (jbc_marray) * t)
+FUNCTION (marray, isnull) (const TYPE (marray) * t)
 {
   size_t i, n;
 

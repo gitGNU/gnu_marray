@@ -19,7 +19,7 @@
  */
 
 /*
- * This file contains the basic declarations for a jbc_marray.
+ * This file contains the basic declarations for a marray.
  */
 #ifndef __MARRAY_NAME_H__
 #define __MARRAY_NAME_H__
@@ -49,7 +49,7 @@ __BEGIN_DECLS
 
 
 /*
- * A jbc_marray is a struct with the rank of the jbc_marray (number of
+ * A marray is a struct with the rank of the marray (number of
  * indices it has), an array with the number of elements available for
  * each index, and an array to store the n1*n2*...*nm values.
  *
@@ -63,26 +63,26 @@ typedef struct
   size_t * dimension;
   size_t size;
   TYPE * data;
-} jbc_marray_NAME;
+} marray_NAME;
 
 
 /*
- * There is not such a thing as "jbc_marray views", in contrast with the
+ * There is not such a thing as "marray views", in contrast with the
  * case for gsl_matrix.
  */
 
 /* Allocation */
 
-jbc_marray_NAME *
-jbc_marray_NAME_alloc(const unsigned int rank, const size_t * dimension);
+marray_NAME *
+marray_NAME_alloc(const unsigned int rank, const size_t * dimension);
 
-jbc_marray_NAME *
-jbc_marray_NAME_calloc(const unsigned int rank, const size_t * dimension);
+marray_NAME *
+marray_NAME_calloc(const unsigned int rank, const size_t * dimension);
 
-jbc_marray_NAME *
-jbc_marray_NAME_copy(jbc_marray_NAME * t);
+marray_NAME *
+marray_NAME_copy(marray_NAME * t);
 
-void jbc_marray_NAME_free(jbc_marray_NAME * t);
+void marray_NAME_free(marray_NAME * t);
 
 
 /* Views */
@@ -94,46 +94,46 @@ void jbc_marray_NAME_free(jbc_marray_NAME * t);
 
 /* Conversions */
 
-gsl_matrix_NAME * jbc_marray_NAME_2matrix(jbc_marray_NAME * t);
-gsl_vector_NAME * jbc_marray_NAME_2vector(jbc_marray_NAME * t);
+gsl_matrix_NAME * marray_NAME_2matrix(marray_NAME * t);
+gsl_vector_NAME * marray_NAME_2vector(marray_NAME * t);
 
 
 /* Operations */
 
-TYPE jbc_marray_NAME_get(const jbc_marray_NAME * t, const size_t * indices);
-void jbc_marray_NAME_set(jbc_marray_NAME * t, const size_t * indices, const TYPE x);
+TYPE marray_NAME_get(const marray_NAME * t, const size_t * indices);
+void marray_NAME_set(marray_NAME * t, const size_t * indices, const TYPE x);
 
 
-TYPE * jbc_marray_NAME_ptr(jbc_marray_NAME * t, const size_t * indices);
-const TYPE * jbc_marray_NAME_const_ptr(const jbc_marray_NAME * t, const size_t * indices);
+TYPE * marray_NAME_ptr(marray_NAME * t, const size_t * indices);
+const TYPE * marray_NAME_const_ptr(const marray_NAME * t, const size_t * indices);
 
-void jbc_marray_NAME_set_zero(jbc_marray_NAME * t);
-void jbc_marray_NAME_set_all(jbc_marray_NAME * t, TYPE x);
+void marray_NAME_set_zero(marray_NAME * t);
+void marray_NAME_set_all(marray_NAME * t, TYPE x);
 
-int jbc_marray_NAME_fread(FILE * stream, jbc_marray_NAME * t);
-int jbc_marray_NAME_fwrite(FILE * stream, const jbc_marray_NAME * t);
-int jbc_marray_NAME_fscanf(FILE * stream, jbc_marray_NAME * t);
-int jbc_marray_NAME_fprintf(FILE * stream, const jbc_marray_NAME * t, const char * format);
+int marray_NAME_fread(FILE * stream, marray_NAME * t);
+int marray_NAME_fwrite(FILE * stream, const marray_NAME * t);
+int marray_NAME_fscanf(FILE * stream, marray_NAME * t);
+int marray_NAME_fprintf(FILE * stream, const marray_NAME * t, const char * format);
 
-int jbc_marray_NAME_memcpy(jbc_marray_NAME * dest, const jbc_marray_NAME * src);
-int jbc_marray_NAME_swap(jbc_marray_NAME * t1, jbc_marray_NAME * t2);
+int marray_NAME_memcpy(marray_NAME * dest, const marray_NAME * src);
+int marray_NAME_swap(marray_NAME * t1, marray_NAME * t2);
 
-TYPE jbc_marray_NAME_max(const jbc_marray_NAME * t);
-TYPE jbc_marray_NAME_min(const jbc_marray_NAME * t);
-void jbc_marray_NAME_minmax(const jbc_marray_NAME * t, TYPE * min_out, TYPE * max_out);
+TYPE marray_NAME_max(const marray_NAME * t);
+TYPE marray_NAME_min(const marray_NAME * t);
+void marray_NAME_minmax(const marray_NAME * t, TYPE * min_out, TYPE * max_out);
 
-void jbc_marray_NAME_max_index(const jbc_marray_NAME * t, size_t * indices);
-void jbc_marray_NAME_min_index(const jbc_marray_NAME * t, size_t * indices);
-void jbc_marray_NAME_minmax_index(const jbc_marray_NAME * t, size_t * imin, size_t * imax);
+void marray_NAME_max_index(const marray_NAME * t, size_t * indices);
+void marray_NAME_min_index(const marray_NAME * t, size_t * indices);
+void marray_NAME_minmax_index(const marray_NAME * t, size_t * imin, size_t * imax);
 
-int jbc_marray_NAME_isnull(const jbc_marray_NAME * t);
+int marray_NAME_isnull(const marray_NAME * t);
 
-int jbc_marray_NAME_add(jbc_marray_NAME * a, const jbc_marray_NAME * b);
-int jbc_marray_NAME_sub(jbc_marray_NAME * a, const jbc_marray_NAME * b);
-int jbc_marray_NAME_mul_elements(jbc_marray_NAME * a, const jbc_marray_NAME * b);
-int jbc_marray_NAME_div_elements(jbc_marray_NAME * a, const jbc_marray_NAME * b);
-int jbc_marray_NAME_scale(jbc_marray_NAME * a, const double x);
-int jbc_marray_NAME_add_constant(jbc_marray_NAME * a, const double x);
+int marray_NAME_add(marray_NAME * a, const marray_NAME * b);
+int marray_NAME_sub(marray_NAME * a, const marray_NAME * b);
+int marray_NAME_mul_elements(marray_NAME * a, const marray_NAME * b);
+int marray_NAME_div_elements(marray_NAME * a, const marray_NAME * b);
+int marray_NAME_scale(marray_NAME * a, const double x);
+int marray_NAME_add_constant(marray_NAME * a, const double x);
 
 
 /* inline functions if you are using GCC */
@@ -141,7 +141,7 @@ int jbc_marray_NAME_add_constant(jbc_marray_NAME * a, const double x);
 #ifdef HAVE_INLINE
 extern inline
 size_t
-jbc_marray_NAME_position(const size_t * indices, const jbc_marray_NAME * t)
+marray_NAME_position(const size_t * indices, const marray_NAME * t)
 {
   size_t shift, position;
   unsigned int i;
@@ -164,11 +164,11 @@ jbc_marray_NAME_position(const size_t * indices, const jbc_marray_NAME * t)
 
 extern inline 
 TYPE
-jbc_marray_NAME_get(const jbc_marray_NAME * t, const size_t * indices)
+marray_NAME_get(const marray_NAME * t, const size_t * indices)
 {
   size_t position;
 
-  position = jbc_marray_NAME_position(indices, t);
+  position = marray_NAME_position(indices, t);
 #if GSL_RANGE_CHECK
   if (position >= t->size)
     GSL_ERROR_VAL("index out of range", GSL_EINVAL, 0);
@@ -180,11 +180,11 @@ jbc_marray_NAME_get(const jbc_marray_NAME * t, const size_t * indices)
 
 extern inline
 void
-jbc_marray_NAME_set(jbc_marray_NAME * t, const size_t * indices, const TYPE x)
+marray_NAME_set(marray_NAME * t, const size_t * indices, const TYPE x)
 {
   size_t position;
   
-  position = jbc_marray_NAME_position(indices, t);
+  position = marray_NAME_position(indices, t);
 #if GSL_RANGE_CHECK
   if (position >= t->size)
     GSL_ERROR_VOID("index out of range", GSL_EINVAL);
@@ -196,11 +196,11 @@ jbc_marray_NAME_set(jbc_marray_NAME * t, const size_t * indices, const TYPE x)
 
 extern inline 
 TYPE *
-jbc_marray_NAME_ptr(jbc_marray_NAME * t, const size_t * indices)
+marray_NAME_ptr(marray_NAME * t, const size_t * indices)
 {
   size_t position;
 
-  position = jbc_marray_NAME_position(indices, t);
+  position = marray_NAME_position(indices, t);
 #if GSL_RANGE_CHECK
   if (position >= t->size)
     GSL_ERROR_NULL("index out of range", GSL_EINVAL);
@@ -212,11 +212,11 @@ jbc_marray_NAME_ptr(jbc_marray_NAME * t, const size_t * indices)
 
 extern inline 
 const TYPE *
-jbc_marray_NAME_const_ptr(const jbc_marray_NAME * t, const size_t * indices)
+marray_NAME_const_ptr(const marray_NAME * t, const size_t * indices)
 {
   size_t position;
 
-  position = jbc_marray_NAME_position(indices, t);
+  position = marray_NAME_position(indices, t);
 #if GSL_RANGE_CHECK
   if (position >= t->size)
     GSL_ERROR_NULL("index out of range", GSL_EINVAL);

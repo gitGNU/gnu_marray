@@ -1,4 +1,4 @@
-/* jbc_marray/file_source.c
+/* marray/file_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Gerard Jungman, Brian Gough
@@ -20,12 +20,12 @@
  */
 
 /*
- * Reads the (binary stored) contents of a jbc_marray from a stream.
+ * Reads the (binary stored) contents of a marray from a stream.
  *
- * The jbc_marray must be properly allocated before calling to this function.
+ * The marray must be properly allocated before calling to this function.
  */
 int
-FUNCTION(jbc_marray, fread) (FILE * stream, TYPE(jbc_marray) * t)
+FUNCTION(marray, fread) (FILE * stream, TYPE(marray) * t)
 {
   size_t n = t->size;
   ATOMIC * data = t->data;
@@ -42,10 +42,10 @@ FUNCTION(jbc_marray, fread) (FILE * stream, TYPE(jbc_marray) * t)
 
 
 /*
- * Writes the contents of jbc_marray t to a stream, in binary form.
+ * Writes the contents of marray t to a stream, in binary form.
  */
 int
-FUNCTION(jbc_marray, fwrite) (FILE * stream, const TYPE(jbc_marray) * t)
+FUNCTION(marray, fwrite) (FILE * stream, const TYPE(marray) * t)
 {
   size_t n = t->size;
   ATOMIC * data = t->data;
@@ -63,7 +63,7 @@ FUNCTION(jbc_marray, fwrite) (FILE * stream, const TYPE(jbc_marray) * t)
 
 #if !(defined(USES_LONGDOUBLE) && !defined(HAVE_PRINTF_LONGDOUBLE))
 int
-FUNCTION(jbc_marray, fprintf) (FILE * stream, const TYPE(jbc_marray) * t,
+FUNCTION(marray, fprintf) (FILE * stream, const TYPE(marray) * t,
 				const char *format)
 {
   size_t i;
@@ -109,7 +109,7 @@ FUNCTION(jbc_marray, fprintf) (FILE * stream, const TYPE(jbc_marray) * t,
 
 
 int
-FUNCTION(jbc_marray, fscanf) (FILE * stream, TYPE(jbc_marray) * t)
+FUNCTION(marray, fscanf) (FILE * stream, TYPE(marray) * t)
 {
   size_t i;
   size_t n = t->size;

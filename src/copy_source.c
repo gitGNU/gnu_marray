@@ -1,4 +1,4 @@
-/* jbc_marray/copy_source.c
+/* marray/copy_source.c
  * 
  * Copyright (C) 2002, 2003, 2004, 2005, 2007 Jordi Burguet-Castell
  * based on the gsl_matrix code from Gerard Jungman, Brian Gough
@@ -23,20 +23,20 @@
 
 
 /*
- * Overwrites dest with the contents of jbc_marray src.
+ * Overwrites dest with the contents of marray src.
  */
 int
-FUNCTION (jbc_marray, memcpy) (TYPE (jbc_marray) * dest,
-                               const TYPE (jbc_marray) * src)
+FUNCTION (marray, memcpy) (TYPE (marray) * dest,
+                               const TYPE (marray) * src)
 {
   unsigned int i;
 
   if (dest->rank != src->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (i = 0; i < src->rank; i++)
     if (dest->dimension[i] != src->dimension[i])
-      GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+      GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
 
   memcpy(dest->data, src->data, sizeof(BASE) * src->size);
 
@@ -45,20 +45,20 @@ FUNCTION (jbc_marray, memcpy) (TYPE (jbc_marray) * dest,
 
 
 /*
- * Interchanges the values of jbc_marrays t1 and t2
+ * Interchanges the values of marrays t1 and t2
  */
 int
-FUNCTION (jbc_marray, swap) (TYPE (jbc_marray) * t1, TYPE (jbc_marray) * t2)
+FUNCTION (marray, swap) (TYPE (marray) * t1, TYPE (marray) * t2)
 {
   unsigned int i;
 
   if (t1->rank != t2->rank)
-    GSL_ERROR ("jbc_marrays have different number of indices", GSL_EBADLEN);
+    GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 
   for (i = 0; i < t1->rank; i++)
     {
       if (t1->dimension[i] != t2->dimension[i])
-        GSL_ERROR ("jbc_marray sizes are different", GSL_EBADLEN);
+        GSL_ERROR ("marray sizes are different", GSL_EBADLEN);
     }
 
   {
