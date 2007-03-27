@@ -11,14 +11,15 @@ dnl MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 dnl General Public License for more details.
 dnl
 dnl You should have received a copy of the GNU General Public License
-dnl along with this program; if not, write to the Free Software
-dnl Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-dnl
+dnl along with this program; if not, write to:
+dnl   Free Software Foundation, Inc.
+dnl   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
+
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT
 
-AM_INIT_AUTOMAKE(marray,0.98)
+AM_INIT_AUTOMAKE(marray,0.99)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_MAKE_SET
