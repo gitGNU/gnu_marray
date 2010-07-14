@@ -30,7 +30,7 @@ FUNCTION(marray, fread) (FILE * stream, TYPE(marray) * t)
   size_t n = t->size;
   ATOMIC * data = t->data;
 
-  size_t items = fread(data, MULTIPLICITY * sizeof(ATOMIC), n, stream);
+  size_t items = fread(data, sizeof(ATOMIC), n, stream);
 
   if (items != n)
     {
@@ -50,7 +50,7 @@ FUNCTION(marray, fwrite) (FILE * stream, const TYPE(marray) * t)
   size_t n = t->size;
   ATOMIC * data = t->data;
 
-  size_t items = fwrite(data, MULTIPLICITY * sizeof(ATOMIC), n, stream);
+  size_t items = fwrite(data, sizeof(ATOMIC), n, stream);
 
   if (items != n)
     {
@@ -75,25 +75,16 @@ FUNCTION(marray, fprintf) (FILE * stream, const TYPE(marray) * t,
 
   for (i = 0; i < n; i++)
     {
-      int k;
-      for (k = 0; k < MULTIPLICITY; k++)
+#if defined(BASE_COMPLEX_DOUBLE)
+      status = fprintf(stream, format, creal(data[i]));
+      status = putc(' ', stream);
+      status = fprintf(stream, format, cimag(data[i]));
+#else
+      status = fprintf(stream, format, data[i]);
+#endif
+      if (status < 0)
         {
-          if (k > 0)
-            {
-              status = putc(' ', stream);
-              
-              if (status == EOF)
-                {
-                  GSL_ERROR ("putc failed", GSL_EFAILED);
-                }
-            }
-          
-          status = fprintf(stream, format, data[MULTIPLICITY * i + k]);
-          
-          if (status < 0)
-            {
-              GSL_ERROR ("fprintf failed", GSL_EFAILED);
-            }
+          GSL_ERROR ("fprintf failed", GSL_EFAILED);
         }
       
       status = putc ('\n', stream);
@@ -116,20 +107,25 @@ FUNCTION(marray, fscanf) (FILE * stream, TYPE(marray) * t)
 
   ATOMIC * data = t->data;
 
+  int status = 0;
+
   for (i = 0; i < n; i++)
     {
-      int k;
-      for (k = 0; k < MULTIPLICITY; k++)
-        {
-          ATOMIC_IO tmp;
+#if defined(BASE_COMPLEX_DOUBLE)
+      ATOMIC_IO tmp1;
+      ATOMIC_IO tmp2;
+      status = fscanf(stream, IN_FORMAT, &tmp1);
+      status = fscanf(stream, IN_FORMAT, &tmp2);
+      *(&data[i]) = tmp1;
+      *(&(double)data[i]+1) = tmp2;
+#else
+      ATOMIC_IO tmp;
+      status = fscanf(stream, IN_FORMAT, &tmp) ;
+      data[i] = tmp;
+#endif
 
-          int status = fscanf(stream, IN_FORMAT, &tmp) ;
-
-          data[MULTIPLICITY * i + k] = tmp;
-
-          if (status != 1)
-            GSL_ERROR ("fscanf failed", GSL_EFAILED);
-        }
+      if (status != 1)
+        GSL_ERROR ("fscanf failed", GSL_EFAILED);
     }
 
   return GSL_SUCCESS;

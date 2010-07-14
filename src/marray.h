@@ -1,9 +1,7 @@
 #ifndef __MARRAY_H__
 #define __MARRAY_H__
 
-/* #include "marray_complex_long_double.h" */
-/* #include "marray_complex_double.h" */
-/* #include "marray_complex_float.h" */
+#include "marray_complex_double.h"
 
 #include "marray_long_double.h"
 #include "marray_double.h"

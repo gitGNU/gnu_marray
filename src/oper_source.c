@@ -47,7 +47,6 @@ FUNCTION(marray, sub) (TYPE(marray) * a, const TYPE(marray) * b)
   unsigned int j;
   size_t i, n;
 
-
   if (a->rank != b->rank)
     GSL_ERROR ("marrays have different number of indices", GSL_EBADLEN);
 

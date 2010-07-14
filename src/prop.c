@@ -2,23 +2,11 @@
 #include "marray.h"
 #include <gsl/gsl_errno.h>
 
-/* #define BASE_GSL_COMPLEX_LONG */
-/* #include "templates_on.h" */
-/* #include "prop_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX_LONG */
-
-/* #define BASE_GSL_COMPLEX */
-/* #include "templates_on.h" */
-/* #include "prop_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX */
-
-/* #define BASE_GSL_COMPLEX_FLOAT */
-/* #include "templates_on.h" */
-/* #include "prop_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX_FLOAT */
+#define BASE_COMPLEX_DOUBLE
+#include "templates_on.h"
+#include "prop_source.c"
+#include "templates_off.h"
+#undef  BASE_COMPLEX_DOUBLE
 
 #define BASE_LONG_DOUBLE
 #include "templates_on.h"

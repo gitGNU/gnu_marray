@@ -1,4 +1,4 @@
-dnl Copyright (C) 2002, 2003, 2004, 2007 Jordi Burguet-Castell
+dnl Copyright (C) 2002, 2003, 2004, 2007, 2010 Jordi Burguet-Castell
 
 dnl This program is free software; you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT
 
-AM_INIT_AUTOMAKE(marray,0.99)
+AM_INIT_AUTOMAKE(marray,1.00)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_MAKE_SET

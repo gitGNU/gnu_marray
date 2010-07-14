@@ -133,6 +133,7 @@ FUNCTION(test, func) (void)
     }
 
 
+#if !defined(BASE_COMPLEX_DOUBLE)
   /*
    * Test maximum and minimum.
    */
@@ -262,7 +263,7 @@ FUNCTION(test, func) (void)
                 NAME(marray) "_minmax_index returns correct indices");
     }
   }
-
+#endif
 
   /*
    * Operations.

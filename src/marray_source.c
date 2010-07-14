@@ -53,7 +53,7 @@ FUNCTION(marray, get) (const TYPE (marray) * t, const size_t * indices)
     if (position >= t->size)
       GSL_ERROR_VAL("index out of range", GSL_EINVAL, 0);
 
-  return *(BASE *) (t->data + MULTIPLICITY * position);
+  return *(BASE *) (t->data + position);
 }
 
 
@@ -67,7 +67,7 @@ FUNCTION(marray, set) (TYPE (marray) * t, const size_t * indices, const BASE x)
     if (position >= t->size)
       GSL_ERROR_VOID("index out of range", GSL_EINVAL);
 
-  *(BASE *) (t->data + MULTIPLICITY * position) = x;
+  *(BASE *) (t->data + position) = x;
 }
 
 
@@ -81,7 +81,7 @@ FUNCTION(marray, ptr) (TYPE (marray) * t, const size_t * indices)
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);
 
-  return (BASE *) (t->data + MULTIPLICITY * position);
+  return (BASE *) (t->data + position);
 }
 
 
@@ -95,7 +95,7 @@ FUNCTION(marray, const_ptr) (const TYPE (marray) * t, const size_t * indices)
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);
 
-  return (const BASE *) (t->data + MULTIPLICITY * position);
+  return (const BASE *) (t->data + position);
 }
 
 #endif

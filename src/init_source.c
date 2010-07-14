@@ -37,7 +37,7 @@
 TYPE(marray) *
 FUNCTION(marray, alloc) (const unsigned int rank, const size_t * dimension)
 {
-  unsigned int i;
+  size_t i;
   size_t n;
   TYPE(marray) * t;
 
@@ -61,8 +61,6 @@ FUNCTION(marray, alloc) (const unsigned int rank, const size_t * dimension)
     {
       n *= dimension[i];
     }
-
-  n *= MULTIPLICITY;
 
   t->data = (ATOMIC *) malloc (n * sizeof (ATOMIC));
 
@@ -114,7 +112,6 @@ FUNCTION(marray, calloc) (const unsigned int rank, const size_t * dimension)
 TYPE(marray) *
 FUNCTION(marray, copy) (TYPE(marray) * tt)
 {
-  unsigned int i;
   TYPE(marray) * t = FUNCTION(marray, alloc) (tt->rank, tt->dimension);
 
   if (t == 0)
@@ -159,7 +156,11 @@ FUNCTION (marray, 2matrix) (TYPE (marray) * t)
     GSL_ERROR_VAL ("failed to allocate space for matrix struct",
                    GSL_ENOMEM, 0);
 
+#if defined(BASE_COMPLEX_DOUBLE)
+  m->data = (double *) t->data;
+#else
   m->data = t->data;
+#endif
   m->size1 = t->dimension[0];
   m->size2 = t->dimension[1];
   m->tda = t->dimension[0];
@@ -187,7 +188,11 @@ FUNCTION (marray, 2vector) (TYPE (marray) * t)
     GSL_ERROR_VAL ("failed to allocate space for vector struct",
                    GSL_ENOMEM, 0);
 
+#if defined(BASE_COMPLEX_DOUBLE)
+  v->data = (double *) t->data;
+#else
   v->data = t->data;
+#endif
   v->size = t->dimension[0];
   v->stride = 1;
   v->block = NULL;  /* note that this is no problem because owner=0 */
@@ -215,7 +220,7 @@ FUNCTION(marray, set_zero) (TYPE(marray) * t)
 
   for (i = 0; i < n; i++)
     {
-      *(BASE *) (data + MULTIPLICITY * i) = 0;
+      *(BASE *) (data + i) = 0;
     }
 }
 
@@ -230,6 +235,6 @@ FUNCTION(marray, set_all) (TYPE(marray) * t, BASE x)
   ATOMIC * const data = t->data;
 
   n = t->size;
-  for (i = 0; i < n; i += MULTIPLICITY)
-    *(BASE *) (data + MULTIPLICITY * i) = x;
+  for (i = 0; i < n; i++)
+    *(BASE *) (data + i) = x;
 }

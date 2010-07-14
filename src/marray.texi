@@ -14,10 +14,10 @@
 
 @iftex
 @copying
-Copyright @copyright{} 2004 Brian Gough.
+Copyright @copyright{} 2004-2010 Jordi Burguet-Castell.
 
 Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2
+under the terms of the GNU Free Documentation License, Version 1.3
 or any later version published by the Free Software Foundation;
 with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 A copy of the license is included in the section entitled "GNU
@@ -31,9 +31,7 @@ Free Documentation License".
 @subtitle Version @value{VERSION}
 @subtitle @value{UPDATED}
 
-@author Jordi Burguet-Castell
-Network Theory Limited
-@comment @email{burget@@cern.ch}
+@author Jordi Burguet-Castell (@email{jbc@@member.fsf.org})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -43,11 +41,11 @@ Network Theory Limited
 
 @ifnottex
 @node Top, Introduction, (dir), (dir)
-@top MARRAY
+@top marray
 
-This file documents MARRAY, a data type to represent marrays and a
-collection of functions to do basic manipulations with them. It is
-intended to be used as an extension of the GNU Scientific Library
+This file documents @strong{marray}, a data type to represent marrays
+and a collection of functions to do basic manipulations with them. It
+is intended to be used as an extension of the GNU Scientific Library
 (GSL).
 
 Information about GSL can be found at the project homepage,
@@ -58,81 +56,286 @@ under the terms of the GNU Free Documentation License.
 @end ifnottex
 
 @menu
-* Introduction::                
-* Functions::                   
-* Examples::                    
-* References and Further Reading::  
-* GNU Free Documentation License::  
-* Function Index::              
-* Variable Index::              
-* Type Index::                  
-* Concept Index::               
+* Introduction::
+* Functions::
+* Examples::
+* References and Further Reading::
+* GNU Free Documentation License::
+* Function Index::
+@c * Variable Index::
+@c * Type Index::
+@c * Concept Index::
 @end menu
 
 @node  Introduction, Functions, Top, Top
 @chapter Introduction
 
-A marray is a data structure which generalizes vectors and (square)
-matrices. A marray of rank r and dimension d is a ``r-hipercube'' with
-d elements in each row (and column, etc).
+A @emph{marray} is a multidimensional array of arbitrary rank and
+arbitrary dimension, different for each index. It generalizes vectors
+and matrices.
 
 The header file is @file{marray.h}.
 
 @node Functions, Examples, Introduction, Top
 @chapter Functions
 
+The functions @code{marray_f} work with elements of type @code{double}.
+
+There are other versions of the form @code{marray_TYPE_f} where @code{TYPE} is any of:
+@itemize
+@item complex: complex double
+@item long_double: long double
+@item float: float
+@item ulong: unsigned long
+@item long: long
+@item uint: unsigned int
+@item int: int
+@item ushort: unsigned short
+@item short: short
+@item uchar: unsigned char
+@item char: char
+@end itemize
+
 Allocation
 
-@deftypefun marray* marray_alloc (const unsigned int @var{rank}, const size_t @var{dimension})
-this functions allocates memory for a marray of rank @var{rank} and
-dimension @var{dimension}, and returns a pointer to its position in memory.
+@deftypefun {marray *} marray_alloc (const unsigned int @var{rank}, const size_t * @var{dimension});
+Allocate memory for a marray of rank @var{rank} and dimensions given
+in @var{dimension} (an array of size @var{rank}), and return a pointer
+to its position in memory.
 @end deftypefun
 
-@deftypefun marray* marray_calloc (const unsigned int @var{rank}, const size_t @var{dimension})
-this functions allocates memory for a marray and sets all its elements
-to 0
+@deftypefun {marray *} marray_calloc (const unsigned int @var{rank}, const size_t * @var{dimension});
+Allocate memory for a marray of rank @var{rank} and dimensions given
+in @var{dimension} (an array of size @var{rank}), set all its elements
+to 0 and return a pointer to its position in memory.
 @end deftypefun
+
+@deftypefun {marray *} marray_copy ({marray *} @var{t});
+Create a copy of marray @var{t} and return a pointer to its position in memory.
+@end deftypefun
+
+@deftypefun void marray_free ({marray *} @var{t});
+Release the memory used by marray @var{t}.
+@end deftypefun
+
+Conversion
+
+@deftypefun {gsl_matrix *} marray_2matrix ({marray *} @var{t});
+Convert a rank 2 marray to a gsl_matrix.
+@end deftypefun
+
+@deftypefun {gsl_vector *} marray_2vector ({marray *} @var{t});
+Convert a rank 1 marray to a gsl_vector.
+@end deftypefun
+
+ Get/Set elements
+
+@deftypefun double marray_get ({const marray *} @var{t}, {const size_t *} @var{indices});
+t[indices]
+@end deftypefun
+
+@deftypefun void marray_set ({marray *} @var{t}, {const size_t *} @var{indices}, const double @var{x});
+t[indices] = x
+@end deftypefun
+
+  Access pointer
+
+@deftypefun {double *} marray_ptr (marray * @var{t}, const size_t * @var{indices});
+&t[indices]
+@end deftypefun
+
+@deftypefun {const double *} marray_const_ptr (const marray * @var{t}, const size_t * @var{indices});
+&t[indices]  (const pointer)
+@end deftypefun
+
+  Set to a value
+
+@deftypefun void marray_set_zero ({marray *} @var{t});
+t = 0
+@end deftypefun
+
+@deftypefun void marray_set_all ({marray *} @var{t}, double @var{x});
+t = x
+@end deftypefun
+
+  IO
+
+@deftypefun int marray_fread (FILE * @var{stream}, marray * @var{t});
+Read binary representation of marray from @var{stream} and save it in @var{t}.
+@end deftypefun
+
+@deftypefun int marray_fwrite (FILE * @var{stream}, const marray * @var{t});
+Write binary representation of marray @var{t} to @var{stream}.
+@end deftypefun
+
+@deftypefun int marray_fscanf (FILE * @var{stream}, marray * @var{t});
+Read text representation of marray from @var{stream} and save it in @var{t}.
+@end deftypefun
+
+@deftypefun int marray_fprintf (FILE * @var{stream}, const marray * @var{t}, const char * @var{format});
+Write text representation of marray @var{t} to @var{stream}, using format @var{format} for its elements.
+@end deftypefun
+
+  Copy
+
+@deftypefun int marray_memcpy (marray * @var{dest}, const marray * @var{src});
+dest = src
+@end deftypefun
+
+@deftypefun int marray_swap (marray * @var{t1}, marray * @var{t2});
+t1, t2 = t2, t1
+@end deftypefun
+
+  Maxima
+
+@deftypefun double marray_max (const marray * @var{t});
+Maximum element of marray @var{t}.
+@end deftypefun
+
+@deftypefun double marray_min (const marray * @var{t});
+Minimum element of marray @var{t}.
+@end deftypefun
+
+@deftypefun void marray_minmax (const marray * @var{t}, double * min_@var{out}, double * @var{max}_out);
+Copy the minimum and maximum elements of @var{t} in min_@var{out} and @var{max}_out respectively.
+@end deftypefun
+
+@deftypefun void marray_max_index (const marray * @var{t}, size_t * @var{indices});
+Get the indices of the maximum element of @var{t}.
+@end deftypefun
+
+@deftypefun void marray_min_index (const marray * @var{t}, size_t * @var{indices});
+Get the indices of the minimum element of @var{t}.
+@end deftypefun
+
+@deftypefun void marray_minmax_index (const marray * @var{t}, size_t * @var{imin}, size_t * @var{imax});
+Get the indices of the minimum and maximum elements of @var{t}.
+@end deftypefun
+
+  Properties
+
+@deftypefun int marray_isnull (const marray * @var{t});
+t == 0
+@end deftypefun
+
+  Operations
+
+@deftypefun int marray_add (marray * @var{a}, const marray * @var{b});
+a += b
+@end deftypefun
+
+@deftypefun int marray_sub (marray * @var{a}, const marray * @var{b});
+a -= b
+@end deftypefun
+
+@deftypefun int marray_mul_elements (marray * @var{a}, const marray * @var{b});
+a .*= b
+@end deftypefun
+
+@deftypefun int marray_div_elements (marray * @var{a}, const marray * @var{b});
+a ./= b
+@end deftypefun
+
+@deftypefun int marray_scale (marray * @var{a}, const double @var{x});
+a *= x
+@end deftypefun
+
+@deftypefun int marray_add_constant (marray * @var{a}, const double @var{x});
+a += x
+@end deftypefun
+
 
 @node Examples, References and Further Reading, Functions, Top
 @chapter Examples
 
-example program goes here
-
 @example
-#include <...>
+#include <gsl/gsl.h>
+#include <marray.h>
 
-int main (void) 
-@{
-...
+#define RANK 3
+#define DIM1 5
+#define DIM2 2
+#define DIM3 4
+
+
+int main (void)
+ @{
+  size_t dimensions[3] = @{ DIM1, DIM2, DIM3 @};  /* to pass marray dimensions */
+  size_t i, j, k;        /* marray indices */
+  size_t indices[3];     /* to pass marray indices */
+
+  /* Allocate space for the marrays */
+  marray * a = marray_calloc (RANK, dimensions);
+  marray * b = marray_calloc (RANK, dimensions);
+  marray * t = marray_calloc (RANK, dimensions);
+
+  /* Fill them */
+  for (i = 0; i < DIM1; i++)
+    @{
+      for (j = 0; j < DIM2; j++)
+        @{
+          for (k = 0; k < DIM3; k++)
+            @{
+              counter++;
+              indices[0] = i;  indices[1] = j;  indices[2] = k;
+              marray_set (a, indices, 3 + i + 5 * j + 2 * k);
+              marray_set (b, indices, 3 + 2 * i + 4 * j + k);
+            @}
+        @}
+    @}
+
+  /*
+   * Do some operations
+   */
+
+  /* Sum */
+  marray_memcpy (t, a);
+  marray_add (t, b);     /* t = a + b */
+  marray_fprintf (stdout, t, "%g");
+
+  /* Element division */
+  marray_memcpy (t, a);
+  marray_div_elements (t, b);  /* t = a ./ b */
+  marray_fprintf (stdout, t, "%g");
+
+  marray_free (a);
+  marray_free (b);
+
+  marray_free (t);
+
+  return 0;
 @}
 @end example
+
+Compile with:
+@code{gcc -o myprog -lgslcblas -lgsl -lmarray myprog.c}
 
 @node References and Further Reading, GNU Free Documentation License, Examples, Top
 @chapter References and Further Reading
 
-Any references
+@url{http://www.gnu.org/software/gsl/manual/html_node/Vectors-and-Matrices.html}
 
 @node GNU Free Documentation License, Function Index, References and Further Reading, Top
 @unnumbered GNU Free Documentation License
-@include fdl.texi
+@include fdl-1.3.texi
 
-@node Function Index, Variable Index, GNU Free Documentation License, Top
+@node Function Index, , GNU Free Documentation License, Top
 @unnumbered Function Index
 
 @printindex fn
 
-@node Variable Index, Type Index, Function Index, Top
-@unnumbered Variable Index
+@c @node Variable Index, Type Index, Function Index, Top
+@c @unnumbered Variable Index
 
-@printindex vr
+@c @printindex vr
 
-@node Type Index, Concept Index, Variable Index, Top
-@unnumbered Type Index
+@c @node Type Index, Concept Index, Variable Index, Top
+@c @unnumbered Type Index
 
-@printindex tp
+@c @printindex tp
 
-@node Concept Index,  , Type Index, Top
-@unnumbered Concept Index
+@c @node Concept Index,  , Type Index, Top
+@c @unnumbered Concept Index
 
-@printindex cp
+@c @printindex cp
 @bye

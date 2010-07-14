@@ -39,27 +39,11 @@ const size_t DIMENSION[3] = { 2, 5, 4};
 
 int status = 0;
 
-/* #ifndef DESC */
-/* #define DESC "" */
-/* #endif */
-
-/* #define BASE_GSL_COMPLEX_LONG */
-/* #include "templates_on.h" */
-/* #include "test_complex_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX_LONG */
-
-/* #define BASE_GSL_COMPLEX */
-/* #include "templates_on.h" */
-/* #include "test_complex_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX */
-
-/* #define BASE_GSL_COMPLEX_FLOAT */
-/* #include "templates_on.h" */
-/* #include "test_complex_source.c" */
-/* #include "templates_off.h" */
-/* #undef  BASE_GSL_COMPLEX_FLOAT */
+#define BASE_COMPLEX_DOUBLE
+#include "templates_on.h"
+#include "test_source.c"
+#include "templates_off.h"
+#undef  BASE_COMPLEX_DOUBLE
 
 #define BASE_LONG_DOUBLE
 #include "templates_on.h"
@@ -146,9 +130,7 @@ main (void)
   test_short_func();
   test_uchar_func();
   test_char_func();
-/*   test_complex_func (); */
-/*   test_complex_float_func (); */
-/*   test_complex_long_double_func (); */
+  test_complex_func ();
 
   test_text();
   test_float_text();
@@ -163,11 +145,7 @@ main (void)
   test_short_text ();
   test_uchar_text ();
   test_char_text ();
-/*   test_complex_text (); */
-/*   test_complex_float_text (); */
-/* #if HAVE_PRINTF_LONGDOUBLE */
-/*   test_complex_long_double_text (); */
-/* #endif */
+  test_complex_text ();
 
   test_binary();
   test_float_binary();
@@ -180,9 +158,7 @@ main (void)
   test_short_binary();
   test_uchar_binary();
   test_char_binary();
-/*   test_complex_binary(); */
-/*   test_complex_float_binary(); */
-/*   test_complex_long_double_binary(); */
+  test_complex_binary();
 
   gsl_set_error_handler(&my_error_handler);
 
@@ -197,13 +173,7 @@ main (void)
   test_short_trap();
   test_uchar_trap();
   test_char_trap();
-/*   test_complex_trap(); */
-/*   test_complex_float_trap(); */
-/*   test_complex_long_double_trap(); */
-
-/*   test_complex_arith(); */
-/*   test_complex_float_arith(); */
-/*   test_complex_long_double_arith(); */
+  test_complex_trap();
 
   exit(gsl_test_summary());
 }
